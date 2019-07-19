@@ -1,0 +1,67 @@
+<!-- Navbar Start -->
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(10, 10, 10, 0.6);">
+        <a class="navbar-brand navText" href="#">{{username}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['../../../home',movie.name,username]">Home</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['../../../admin']">Admin</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['']">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Navbar End -->
+
+<div class="container">
+    <div class="bgCol">
+        <div align="center">
+            <h1>{{movie.name}}</h1>
+            <h3>Genre: {{movie.genre}}</h3>
+            <table>
+                <tr>
+                    <td><img src={{movie.ilink}} width="500px"></td>
+                    <td style="font-size: 150%">{{movie.description}}</td>
+                </tr>
+            </table>
+            <a href="{{movie.tlink}}">Have a look at the trailer</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="comment" align="center"> 
+        <!-- <div>
+            <h2>Star Rating</h2>
+            <span class="fa fa-star star" (mouseover)="starFunction(1)" (click)="setStars(1)" (mouseout)="displayStars()"></span>
+            <span class="fa fa-star star" (mouseover)="starFunction(2)" (click)="setStars(2)" (mouseout)="displayStars()"></span>
+            <span class="fa fa-star star" (mouseover)="starFunction(3)" (click)="setStars(3)" (mouseout)="displayStars()"></span>
+            <span class="fa fa-star star" (mouseover)="starFunction(4)" (click)="setStars(4)" (mouseout)="displayStars()"></span>
+            <span class="fa fa-star star" (mouseover)="starFunction(5)" (click)="setStars(5)" (mouseout)="displayStars()"></span>
+        </div> -->
+        <label>Leave a comment</label><br>
+        <textarea rows="10" #comment></textarea>
+        <div class="button" (click)="post(comment)">Post</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="comment">
+            <div  *ngFor="let i of movie.comments">
+                <h4 style="margin-left: 10px">{{i.username}}</h4>
+                <div>{{i.comment}}</div>
+            <hr>
+        </div>
+    </div>
+</div>
+

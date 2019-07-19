@@ -1,0 +1,41 @@
+<div class="container">
+        <form class="bgStyle" #signup="ngForm">
+                <h3 align="center" style="color: #0C4469">Sign Up</h3>
+                <div class="test">
+                    <input type="text" name="username" required ngModel #username="ngModel"><br>        
+                    <label>Username<span>*</span></label>
+                    <p *ngIf="username.invalid && username.touched">Invalid Username</p>
+                </div>
+                
+                <div class="test">
+                    <input type="text" name="email" required ngModel #email="ngModel"><br>
+                    <label>Email<span>*</span></label>
+                    <p *ngIf="email.invalid && email.touched">Invalid Email</p>
+                </div>
+                
+                <div class="test">
+                    <input type="text" name="region" required ngModel #region="ngModel"><br>
+                    <label>Region</label>
+                    <!-- <p *ngIf="email.invalid && email.touched">Invalid Email</p> -->
+                </div>
+
+                <div class="test">
+                    <input type="password" name="password" required ngModel #password="ngModel"><br>
+                    <label>Password<span>*</span></label>
+                    <p *ngIf="password.invalid && password.touched">Enter a Password</p>
+                </div>
+
+                <div class="test">
+                    <input type="password" name="cpassword" required ngModel #cpassword="ngModel"><br>
+                    <label>Confirm Password<span>*</span></label>
+                    <p *ngIf="cpassword.value != password.value && cpassword.touched">Passwords do not match</p>
+                </div>
+    
+                <div class="button" (click)="signUp(signup)">Sign Up</div>
+                <p style="color: red; font-weight: bold;">{{text}}</p>
+                <br>
+                <p align="center" style="color: #0C4469; font-size: 130%">Already have an account. <a routerLink=""> Log In</a></p>
+        </form>
+    </div>
+    
+    
