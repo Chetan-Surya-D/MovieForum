@@ -8,58 +8,55 @@ const router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 
-router.post('/save', (req, res, next) => {
+router.post('/save', async (req, res, next) => {
     var movie = new movieSchema(req.body);
-    movieSchema.findOne({name: req.body.name}, (err,result) => {
-        if(err){
-            res.status(500).json(err);
-        } else if(result == null) {
-            movie.save((err, result) => {
-                if(err) {
-                    res.status(500).json(err);
-                } else {
-                    res.status(200).json({
-                        status: "success",
-                        data: result
-                    })
-                }
-            })
+    try {
+        const result = await movieSchema.findOne({name: req.body.name})
+        if(result == null) {
+            try {
+                const result = await movie.save()
+                res.status(200).json({
+                    status: "success",
+                    data: result
+                })
+            } catch(error) {
+                console.log(error);
+            }
         } else {
             res.status(200).json({
                 status: "fail",
                 data: "movie already exists"
             })
         }
-    })
-
+    } catch(error) {
+        console.log(error);
+    }
 })
 
-router.post('/load', (req, res, next) => {
-    movieSchema.findOne({name: req.body.name}, (err,result) => {
-        if(err) {
-            res.status(500).json(err);
-        } else {
-            res.status(200).json({
-                status: "success",
-                data: result
-            })
-        }
-    })
+router.post('/load', async (req, res, next) => {
+    try {
+        const result = await movieSchema.findOne({name: req.body.name})
+        res.status(200).json({
+            status: "success",
+            data: result
+        })
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-router.post('/update',(req,res,next)=>{
+router.post('/update',async (req,res,next)=>{
     console.log("Inside Update",req.body)
-    movieSchema.update({name:req.body.name},{$push: {comments: req.body.comments}},function (error, data) {
-        if (error) {
-            res.status(500).json(error)
-        } else {
-            res.status(200).json({
-                status: "succes",
-                result: data
-            })
-        }
-    });
-   //getmovie.update({nameofthemovie:req.body.nameofthemovie},{$push: {commentofthemovie: req.body.commentofthemovie}});
+    try {
+        const result = await movieSchema.updateOne({name:req.body.name},{comments: req.body.comments})
+        res.status(200).json({
+            status: "succes",
+            data: result
+        })
+    } catch(error) {
+        console.log(error);
+    }
+//    await getmovie.update({nameofthemovie:req.body.nameofthemovie},{$push: {commentofthemovie: req.body.commentofthemovie}});
 });
 
 

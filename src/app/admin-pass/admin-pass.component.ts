@@ -17,7 +17,7 @@ export class AdminPassComponent implements OnInit {
   }
 
   accept(passForm: NgForm){
-    if(passForm.value.passCode == "adminofmovies12345"){
+    if(passForm.value.passCode == "admin"){
       this.errorStatus = false;
       this.router.navigate(['../admin']);
     } else {

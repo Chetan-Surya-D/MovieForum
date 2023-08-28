@@ -8,12 +8,13 @@ const saltRounds = 10;
 
 
 const router = express.Router();
-mongoose.connect('mongodb://localhost/MoviesForum');
+
+mongoose.connect('mongodb://localhost:27017/MoviesForum');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 
-router.post('/signup', (req,res,next) => {
+router.post('/signup', async (req,res,next) => {
     
     var hash = bcrypt.hashSync(req.body.password,saltRounds);
     var userJson = {
@@ -25,37 +26,38 @@ router.post('/signup', (req,res,next) => {
 
     var user = new userSchema(userJson);
     console.log(user);
-    userSchema.findOne({username:req.body.username}, (err,result) => {
-        if(err) {
-            res.status(500).json(err);
-        } else if(result == null) {
-            user.save((err,result) => {
-                console.log(result);
-                if(err) {
-                    res.status(500).json(err);
-                } else {
+    try {
+        const result = await userSchema.findOne({username:req.body.username});
+        if(result == null) {
+            try {
+                const data = await user.save();
+                console.log(data);
+                {
                     res.status(200).json({
                         status: "success",
-                        data: result
+                        data: data
                     });
                 }
-            })
+            } catch (error) {
+                console.log(error);
+            }
         } else {
             res.status(200).json({
                 status: "fail",
                 data: "Username already exists"
             })
         }
-    })
+    } catch (error) {
+      console.log(error);
+    }
 })
 
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     
 
-    userSchema.findOne({username: req.body.username}, (err,result) => {
-        if(err){
-            res.status(500).json(err);
-        } else if(result == null){
+    try {
+        const result = await userSchema.findOne({username: req.body.username});
+        if(result == null) {
             res.status(200).json({
                 status: "fail",
                 data: "invalid username"
@@ -66,13 +68,10 @@ router.post('/login', (req, res, next) => {
                     status: "success",
                     data: result
                 });
-            else
-            res.status(200).json({
-                status: "fail",
-                data: "invalid password",
-            });
         }
-    })
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 router.get('/', (req,res,next) => {

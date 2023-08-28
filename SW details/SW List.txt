@@ -1,0 +1,4 @@
+Node - v14.20.1
+Angular - 8.1.1
+Mongoose - 7.4.5
+MongoDB - 5.0.20

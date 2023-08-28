@@ -73,12 +73,13 @@ export class UserpageComponent implements OnInit {
       description: this.movie.description,
       comments: this.movie.comments
     }
+    console.log(request)
     this.http.post("http://localhost:1025/movie/update", request).subscribe((responseData) => {
-      console.log(responseData);
+      // console.log(responseData);
       this.http.post('http://localhost:1025/movie/load', {name: this.name}).subscribe((responseData) => {
         if(responseData["status"] == "success"){
           this.movie = responseData["data"];
-          console.log(responseData)
+          // console.log(responseData)
         }
       })  
     })

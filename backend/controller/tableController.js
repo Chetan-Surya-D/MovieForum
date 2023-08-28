@@ -8,44 +8,45 @@ const router = express.Router();
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 
-router.post('/save', (req, res, next) => {
+router.post('/save', async (req, res, next) => {
     var movie = new movieNameSchema(req.body);
     console.log(movie);
-    movieNameSchema.findOne({name:req.body.name}, (err,result) => {
-        if(err) {
-            res.status(500).json(err);
-        } else if(result == null) {
-            movie.save((err,result) => {
+    try {
+        const result = await movieNameSchema.findOne({name:req.body.name})
+        if(result == null) {
+            try {
+                const result = await movie.save()
                 console.log(result);
-                if(err) {
-                    console.log("data error");
-                    res.status(500).json(err);
-                } else {
-                    
-                    res.status(200).json({
-                        status: "success",
-                        data: result
-                    });
-                }
-            })
+                res.status(200).json({
+                    status: "success",
+                    data: result
+                });
+            } catch (error) {
+                console.log(error);
+            }
         } else {
             res.status(200).json({
                 status: "fail",
                 data: "Movie already exists"
             })
         }
-    })
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-router.post('/load', (req, res, next) => {
+router.post('/load', async (req, res, next) => {
     console.log("Inside load");
-    movieNameSchema.find((err, result) => {
-        console.log(result)
+    try {
+        const result = await movieNameSchema.find()
+        // console.log(result)
         res.status(200).json({
             status: "success",
             data: result
         })
-    })
+    } catch (error) {
+        console.log(error);
+    }
     console.log("data sent");
 })
 

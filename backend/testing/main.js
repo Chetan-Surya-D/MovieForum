@@ -1,5 +1,9 @@
-const other = require('./other');
+// const other = require('./other');
 
-b = other(9,10);
+// b = other(9,10);
 
-console.log(b)
+// console.log(b)
+
+import { version } from 'mongoose';
+
+console.log(version);
