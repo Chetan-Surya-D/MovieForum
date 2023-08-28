@@ -9,7 +9,7 @@ const saltRounds = 10;
 
 const router = express.Router();
 
-mongoose.connect('mongodb://localhost:27017/MoviesForum');
+mongoose.connect('mongodb+srv://admin:PLHjk97NfPQQ6Uf3@moviesforum.9uzzwe0.mongodb.net/?retryWrites=true&w=majority');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
