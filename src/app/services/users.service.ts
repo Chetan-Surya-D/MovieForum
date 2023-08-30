@@ -16,11 +16,11 @@ export class UsersService {
    
   userSignUp(user: any) {
     this.isAuthenticated = true;
-    return this.http.post('http://localhost:1025/auth/signup', user);
+    return this.http.post('https://movieforumbackend.onrender.com/auth/signup', user);
     
   }
 
   userLogIn(user: any) {
-    return this.http.post('http://localhost:1025/auth/login', user);
+    return this.http.post('https://movieforumbackend.onrender.com/auth/login', user);
   }
 }

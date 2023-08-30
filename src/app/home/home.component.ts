@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     if(this.status == 'welcome')
       this.welcomeText = "Welcome "+this.username+", you have been successfully registered. What would you like to start with"; 
 
-    this.http.post("http://localhost:1025/table/load", "hello").subscribe((responseData) => {
+    this.http.post("https://movieforumbackend.onrender.com/table/load", "hello").subscribe((responseData) => {
       if(responseData["status"] == "success"){
         this.movies = responseData['data'];
       }

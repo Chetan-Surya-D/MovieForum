@@ -25,7 +25,7 @@ export class UserpageComponent implements OnInit {
         this.name = user.get('name');
     })
 
-    this.http.post('http://localhost:1025/movie/load', {name: this.name}).subscribe((responseData) => {
+    this.http.post('https://movieforumbackend.onrender.com/movie/load', {name: this.name}).subscribe((responseData) => {
       if(responseData["status"] == "success"){
         this.movie = responseData["data"];
         console.log(responseData)
@@ -74,9 +74,9 @@ export class UserpageComponent implements OnInit {
       comments: this.movie.comments
     }
     console.log(request)
-    this.http.post("http://localhost:1025/movie/update", request).subscribe((responseData) => {
+    this.http.post("https://movieforumbackend.onrender.com/movie/update", request).subscribe((responseData) => {
       // console.log(responseData);
-      this.http.post('http://localhost:1025/movie/load', {name: this.name}).subscribe((responseData) => {
+      this.http.post('https://movieforumbackend.onrender.com/movie/load', {name: this.name}).subscribe((responseData) => {
         if(responseData["status"] == "success"){
           this.movie = responseData["data"];
           // console.log(responseData)

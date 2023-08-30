@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   
   ngOnInit() {
 
-    this.http.post("http://localhost:1025/table/load", "hello").subscribe((responseData) => {
+    this.http.post("https://movieforumbackend.onrender.com/table/load", "hello").subscribe((responseData) => {
       if(responseData["status"] == "success"){
         this.movies = responseData['data'];
       }
@@ -40,7 +40,7 @@ export class AdminComponent implements OnInit {
         description: form.value.description
       }
 
-      this.http.post('http://localhost:1025/table/save', movieTable).subscribe((responseData) => {
+      this.http.post('https://movieforumbackend.onrender.com/table/save', movieTable).subscribe((responseData) => {
         if(responseData["status"] == "success"){
           console.log(responseData["data"])
           this.errorText = '';
@@ -51,11 +51,11 @@ export class AdminComponent implements OnInit {
           this.successText = '';
         }
       })
-      this.http.post('http://localhost:1025/movie/save', movie).subscribe((responseData) => {
+      this.http.post('https://movieforumbackend.onrender.com/movie/save', movie).subscribe((responseData) => {
         console.log("Saved data\n",responseData);
         this.update = true;
         console.log("Data successfully loaded update status is ", this.update);
-        this.http.post("http://localhost:1025/table/load", "hello").subscribe((responseData) => {
+        this.http.post("https://movieforumbackend.onrender.com/table/load", "hello").subscribe((responseData) => {
           if(responseData["status"] == "success"){
             this.movies = responseData['data'];
             this.update = false;
